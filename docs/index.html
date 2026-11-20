@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Papan Komentator Garunesia</title>
+<meta name="description" content="Leaderboard komentator tercepat di video Shorts Garunesia. Komentar paling awal, poin paling besar!">
+<meta property="og:title" content="Papan Komentator Garunesia">
+<meta property="og:description" content="Komentar paling awal di video Garunesia, poin paling besar. Cek peringkatmu!">
+<meta property="og:image" content="https://garunesia.github.io/logo.png">
+<meta property="og:url" content="https://garunesia.github.io/">
+<meta name="theme-color" content="#1F4D3A">
+<link rel="icon" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat+Brush&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--hijau:#1F4D3A;--hijau2:#183E2F;--hijau3:#2A5F49;--kuning:#F2C14E;--krem:#F2EDE4;--merah:#E8553D;--redup:rgba(242,237,228,.62);--garis:rgba(242,237,228,.18)}
+*{box-sizing:border-box}
+html{background:var(--hijau)}
+body{margin:0;color:var(--krem);font:400 16px/1.45 Kalam,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:680px;margin:0 auto;padding:20px 16px 48px}
+.brush{font-family:"Caveat Brush","Comic Sans MS",cursive;font-weight:400;letter-spacing:.5px}
+header{text-align:center;padding:8px 0 4px}
+header img{width:150px;height:auto;opacity:.95}
+h1{font-size:44px;line-height:1;margin:6px 0 4px;color:var(--kuning)}
+.sub{color:var(--redup);margin:0}
+.stats{display:flex;justify-content:center;gap:24px;margin:14px 0 0}
+.stats b{display:block;font-family:"Caveat Brush",cursive;font-weight:400;font-size:30px;color:var(--kuning);line-height:1}
+.stats span{font-size:13px;color:var(--redup)}
+section{margin-top:28px}
+h2{font-size:30px;margin:0 0 10px;color:var(--krem);display:flex;align-items:center;gap:10px}
+.card{border:2px solid var(--garis);border-radius:16px;padding:14px;background:var(--hijau2)}
+.card+.card{margin-top:12px}
+.vhead{display:flex;gap:12px;align-items:center;text-decoration:none}
+.vhead img{width:54px;height:72px;object-fit:cover;border-radius:8px;background:var(--hijau3);flex:none}
+.vtitle{font-weight:700;line-height:1.25}
+.vmeta{font-size:13px;color:var(--redup)}
+.tonton{display:inline-block;margin-top:8px;color:var(--kuning)}
+.mini{list-style:none;margin:10px 0 0;padding:0}
+.mini li{display:flex;align-items:center;gap:10px;padding:6px 0;border-top:1px dashed var(--garis)}
+.mini .r{width:22px;text-align:center;font-family:"Caveat Brush",cursive;font-size:22px;color:var(--kuning)}
+.mini .n{text-decoration:none;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mini .p{font-weight:700;color:var(--kuning)}
+.empty{color:var(--redup);font-size:14px;padding:6px 0 0}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+select{appearance:none;width:100%;background:var(--hijau2) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9'%3E%3Cpath d='M1 1l6 6 6-6' stroke='%23F2C14E' stroke-width='2.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 16px center;color:var(--kuning);border:2px solid var(--kuning);border-radius:12px;padding:10px 44px 10px 14px;font:700 17px Kalam,sans-serif;cursor:pointer}
+select option{color:var(--krem);background:var(--hijau2)}
+.podium{display:grid;grid-template-columns:1fr 1.15fr 1fr;gap:8px;align-items:end;margin-bottom:14px}
+.pod{text-align:center;text-decoration:none;display:block;min-width:0}
+.pod .av{margin:0 auto 6px}
+.pod .stand{border-radius:14px 14px 4px 4px;background:var(--hijau2);border:2px solid var(--garis);padding:8px 6px 10px}
+.pod.first .stand{border-color:var(--kuning);padding-top:14px}
+.pod .pn{font-weight:700;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pod .ph{font-size:12px;color:var(--redup);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pod .pp{font-family:"Caveat Brush",cursive;font-size:28px;color:var(--kuning);line-height:1.1}
+.medal{font-family:"Caveat Brush",cursive;font-size:34px;line-height:1;color:var(--kuning)}
+.av{width:44px;height:44px;border-radius:50%;background:var(--hijau3);display:grid;place-items:center;overflow:hidden;flex:none;font-weight:700;color:var(--kuning);border:2px solid var(--garis)}
+.av img{width:100%;height:100%;object-fit:cover}
+.pod .av{width:58px;height:58px;font-size:22px}
+.pod.first .av{width:76px;height:76px;border-color:var(--kuning);font-size:28px}
+.list{list-style:none;margin:0;padding:0}
+.row{display:flex;align-items:center;gap:12px;padding:10px 4px;border-top:1px solid var(--garis)}
+.row .rk{width:30px;text-align:center;font-family:"Caveat Brush",cursive;font-size:24px;color:var(--redup);flex:none}
+.row .who{flex:1;min-width:0}
+.row .nm{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;text-decoration:none}
+.row .hd{font-size:13px;color:var(--redup);text-decoration:none}
+.row .hd:hover,.row .nm:hover{color:var(--kuning)}
+.row .pts{text-align:right;flex:none}
+.row .pts b{font-family:"Caveat Brush",cursive;font-weight:400;font-size:26px;color:var(--kuning);line-height:1}
+.row .pts span{display:block;font-size:11px;color:var(--redup)}
+.badges{display:flex;gap:4px;flex-wrap:wrap;margin-top:3px}
+.bd{font-size:11px;line-height:1;padding:4px 7px;border-radius:999px;border:1px solid var(--garis);color:var(--krem);white-space:nowrap}
+.bd.gold{border-color:var(--kuning);color:var(--kuning)}
+.bd.red{border-color:var(--merah);color:#ffb3a5}
+.search{width:100%;margin:0 0 10px;padding:10px 14px;border-radius:12px;border:2px solid var(--garis);background:var(--hijau2);color:var(--krem);font:16px Kalam,sans-serif}
+.search::placeholder{color:var(--redup)}
+.hl{background:rgba(242,193,78,.14);border-radius:10px}
+details.card summary{cursor:pointer;list-style:none}
+details.card summary::-webkit-details-marker{display:none}
+.rules{padding-left:20px;margin:0}
+.rules li{margin:4px 0}
+.rules b{color:var(--kuning)}
+.pointsrow{display:flex;gap:6px;margin:10px 0 2px;flex-wrap:wrap}
+.pointsrow div{flex:1;min-width:52px;text-align:center;border:2px solid var(--garis);border-radius:12px;padding:6px 2px}
+.pointsrow div b{display:block;font-family:"Caveat Brush",cursive;font-weight:400;font-size:28px;color:var(--kuning);line-height:1}
+.pointsrow div span{font-size:12px;color:var(--redup)}
+.cta{display:block;text-align:center;margin-top:16px;padding:13px;border-radius:14px;background:var(--merah);color:#fff;font-weight:700;text-decoration:none;font-size:17px}
+footer{text-align:center;color:var(--redup);font-size:13px;margin-top:32px}
+.loading{text-align:center;color:var(--redup);padding:40px 0}
+@media (max-width:380px){h1{font-size:38px}.pod .av{width:48px;height:48px}.pod.first .av{width:62px;height:62px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <img src="logo.png" alt="Garunesia">
+    <h1 class="brush">Papan Komentator</h1>
+    <p class="sub">Komentar paling awal di video Garunesia, poin paling besar.</p>
+    <div class="stats" id="stats"></div>
+  </header>
+
+  <section>
+    <h2 class="brush">Peringkat</h2>
+    <div class="tabs"><select id="period" aria-label="Pilih periode"></select></div>
+    <input class="search" id="q" type="search" placeholder="Cari namamu…" autocomplete="off">
+    <div id="board"><div class="loading">Memuat papan…</div></div>
+  </section>
+
+  <section id="recentSec" hidden>
+    <h2 class="brush">Video Terakhir</h2>
+    <div id="recent"></div>
+  </section>
+
+  <section>
+    <h2 class="brush">Cara Main</h2>
+    <div class="card">
+      <ol class="rules" id="rules"></ol>
+      <div class="pointsrow" id="pointsrow"></div>
+      <a class="cta" id="cta" href="#" target="_blank" rel="noopener">Subscribe Garunesia &amp; nyalakan lonceng 🔔</a>
+    </div>
+  </section>
+
+  <footer id="foot"></footer>
+</div>
+
+<script>
+const BULAN=["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const safeUrl=u=>/^https?:\/\//i.test(u||"")?u.replace(/^http:/,"https:"):"#";
+const wib=iso=>new Date(new Date(iso).getTime()+7*3600e3);
+const fmtDate=iso=>{const d=wib(iso);return `${d.getUTCDate()} ${BULAN[d.getUTCMonth()].slice(0,3)} ${d.getUTCFullYear()}`};
+const fmtTime=iso=>{const d=wib(iso);return `${fmtDate(iso)}, ${String(d.getUTCHours()).padStart(2,"0")}.${String(d.getUTCMinutes()).padStart(2,"0")} WIB`};
+const monthLabel=m=>{const[y,mm]=m.split("-");return `${BULAN[+mm-1]} ${y}`};
+let DATA,period="",q="";
+
+function avatar(p){
+  const ini=esc((p.name||"?").trim().charAt(0).toUpperCase());
+  return p.avatar?`<span class="av"><img src="${esc(safeUrl(p.avatar))}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.textContent='${ini}'"></span>`:`<span class="av">${ini}</span>`;
+}
+function badges(r){
+  const b=[];
+  if(r.firsts)b.push(`<span class="bd gold">🥇 Pertama ×${r.firsts}</span>`);
+  if(r.best_streak>=3)b.push(`<span class="bd red">🔥 Beruntun ${r.best_streak}</span>`);
+  if(r.appearances>=10)b.push(`<span class="bd">🦅 Garuda Setia</span>`);
+  return b.length?`<div class="badges">${b.join("")}</div>`:"";
+}
+function rows(){
+  return period==="alltime"?DATA.alltime:(DATA.months[period]||[]);
+}
+function renderBoard(){
+  const all=rows(),el=$("#board");
+  if(!all.length){el.innerHTML=`<p class="empty">Belum ada video yang selesai dihitung di periode ini. Jadilah yang pertama berkomentar di video berikutnya!</p>`;return}
+  const term=q.trim().toLowerCase();
+  let html="";
+  if(!term&&all.length>=3){
+    const order=[all[1],all[0],all[2]],cls=["second","first","third"],med=["2","1","3"];
+    html+=`<div class="podium">`+order.map((r,i)=>`<a class="pod ${cls[i]}" href="${esc(safeUrl(r.url))}" target="_blank" rel="noopener">
+      <div class="medal">${med[i]}</div>${avatar(r)}
+      <div class="stand"><div class="pn">${esc(r.name)}</div><div class="ph">${esc(r.handle)}</div><div class="pp">${r.points}</div></div></a>`).join("")+`</div>`;
+  }
+  const list=term?all.filter(r=>(r.name+" "+r.handle).toLowerCase().includes(term)):all.slice(all.length>=3?3:0);
+  if(term&&!list.length){el.innerHTML=html+`<p class="empty">Nama itu belum masuk 50 besar. Ayo komentar lebih awal!</p>`;return}
+  html+=`<ol class="list">`+list.map(r=>`<li class="row${term?" hl":""}">
+    <span class="rk">${r.rank}</span>${avatar(r)}
+    <div class="who"><a class="nm" href="${esc(safeUrl(r.url))}" target="_blank" rel="noopener">${esc(r.name)}</a>
+      <a class="hd" href="${esc(safeUrl(r.url))}" target="_blank" rel="noopener">${esc(r.handle)}</a>${badges(r)}</div>
+    <div class="pts"><b>${r.points}</b><span>${r.appearances}× masuk</span></div></li>`).join("")+`</ol>`;
+  el.innerHTML=html;
+}
+function videoCard(v){
+  const items=v.top.map(e=>`<li><span class="r">${e.rank}</span>${avatar(e)}<a class="n" href="${esc(safeUrl(e.url))}" target="_blank" rel="noopener">${esc(e.name)} <span class="vmeta">${esc(e.handle)}</span></a><span class="p">+${e.points}</span></li>`).join("");
+  return `<details class="card"><summary>
+    <div class="vhead">${v.thumb?`<img src="${esc(safeUrl(v.thumb))}" alt="" loading="lazy">`:""}
+      <div><div class="vtitle">${esc(v.title)}</div>
+      <div class="vmeta">${fmtDate(v.published)} · ${v.top.length} komentator dapat poin</div></div></div></summary>
+    ${v.top.length?`<ol class="mini">${items}</ol>`:`<p class="empty">Tidak ada komentar yang memenuhi syarat.</p>`}
+    <a class="vmeta tonton" href="https://youtube.com/shorts/${esc(v.id)}" target="_blank" rel="noopener">Tonton video ›</a>
+  </details>`;
+}
+function render(){
+  const d=DATA;
+  $("#stats").innerHTML=`<div><b>${d.totals.videos}</b><span>video dihitung</span></div><div><b>${d.totals.people}</b><span>komentator</span></div>`;
+  const ms=Object.keys(d.months).sort().reverse();
+  const cur=new Date(Date.now()+7*3600e3).toISOString().slice(0,7);
+  if(!ms.includes(cur))ms.unshift(cur);
+  period=period||cur;
+  $("#period").innerHTML=ms.map(m=>`<option value="${m}"${m===period?" selected":""}>${m===cur?"Bulan ini · ":""}${monthLabel(m)}</option>`).join("")
+    +`<option value="alltime"${period==="alltime"?" selected":""}>Sepanjang Masa</option>`;
+  renderBoard();
+  $("#recentSec").hidden=!d.recent.length;
+  $("#recent").innerHTML=d.recent.map(videoCard).join("");
+  const p=d.rules.points;
+  $("#rules").innerHTML=[
+    `Berkomentar di video Shorts Garunesia <b>secepat mungkin</b> setelah tayang.`,
+    `Hanya <b>${p.length} komentator pertama</b> dalam <b>${d.rules.window_hours} jam</b> sejak video tayang yang dapat poin.`,
+    `Satu orang dihitung <b>sekali per video</b>. Balasan (reply) tidak dihitung.`,
+    d.rules.min_words>1?`Komentar minimal <b>${d.rules.min_words} kata</b>. Emoji atau "first" saja tidak dihitung.`:"",
+    `Poin dikunci setelah ${d.rules.window_hours} jam. Peringkat bulanan dimulai ulang setiap tanggal 1.`
+  ].filter(Boolean).map(t=>`<li>${t}</li>`).join("");
+  $("#pointsrow").innerHTML=p.map((x,i)=>`<div><b>${x}</b><span>ke-${i+1}</span></div>`).join("");
+  if(d.channel&&d.channel.url)$("#cta").href=safeUrl(d.channel.url);
+  $("#foot").innerHTML=`Pembaruan terakhir: ${fmtTime(d.generated_at)}<br>Data diambil otomatis dari komentar publik YouTube.`;
+}
+$("#period").onchange=e=>{period=e.target.value;renderBoard()};
+$("#q").oninput=e=>{q=e.target.value;renderBoard()};
+fetch("data/leaderboard.json?t="+Date.now()).then(r=>r.json()).then(d=>{DATA=d;render()})
+  .catch(()=>{$("#board").innerHTML=`<p class="empty">Data belum tersedia. Coba lagi beberapa menit lagi.</p>`});
+</script>
+</body>
+</html>
