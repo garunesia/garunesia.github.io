@@ -125,7 +125,7 @@ function avatar(p,size){
 }
 function badges(r,center){
   const b=[];
-  if(r.firsts)b.push(`<span class="${BADGE} bg-kuning/15" title="${r.firsts}× komentator pertama">🥇</span>`);
+  if(r.firsts)b.push(`<span class="inline-flex h-6 items-center gap-0.5 rounded-full bg-kuning/15 px-2 text-xs" title="${r.firsts}× komentator pertama">🥇<span class="text-[11px] font-bold tabular-nums text-kuning">×${r.firsts}</span></span>`);
   if(r.best_streak>=3)b.push(`<span class="${BADGE} bg-merah/20" title="${r.best_streak} video beruntun">🔥</span>`);
   if(r.appearances>=10)b.push(`<span class="${BADGE} bg-white/10" title="Garuda Setia: dapat poin di ${r.appearances} video">🦅</span>`);
   return b.length?`<div class="mt-1.5 flex gap-1${center?" justify-center":""}">${b.join("")}</div>`:"";
