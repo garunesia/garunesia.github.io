@@ -46,7 +46,7 @@
     <h2 class="text-2xl font-extrabold tracking-tight">Peringkat</h2>
     <p id="periodNote" class="mt-0.5 text-sm text-krem/55">&nbsp;</p>
 
-    <div id="periods" class="-mx-4 mt-4 flex gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none]"></div>
+    <div id="periods" class="-mx-4 mt-3 flex gap-2 overflow-x-auto px-4 py-1.5 [scrollbar-width:none]"></div>
 
     <label class="relative mt-3 block">
       <span class="sr-only">Cari nama</span>
@@ -55,7 +55,7 @@
              class="w-full rounded-xl bg-white/5 py-2.5 pr-3 pl-9 text-sm ring-1 ring-white/10 placeholder:text-krem/40 focus:ring-2 focus:ring-kuning/60 focus:outline-none">
     </label>
 
-    <div id="board" class="mt-6">
+    <div id="board" class="mt-6 scroll-mt-32">
       <div class="space-y-2">
         <div class="h-14 animate-pulse rounded-xl bg-white/5"></div>
         <div class="h-14 animate-pulse rounded-xl bg-white/5"></div>
@@ -108,13 +108,13 @@ const fmtTime=iso=>{const d=wib(iso);return `${fmtDate(iso)}, ${String(d.getUTCH
 const monthLabel=(m,full)=>{const[y,mm]=m.split("-");const b=BULAN[+mm-1];return `${full?b:b.slice(0,3)} ${y}`};
 const after=(from,to)=>{const m=Math.round((new Date(to)-new Date(from))/6e4);return m<1?"<1 mnt":m<60?`${m} mnt`:`${Math.floor(m/60)} jam`};
 const CUR=new Date(Date.now()+7*3600e3).toISOString().slice(0,7);
-const BADGE="grid size-6 place-items-center rounded-full text-xs";
+const PER=10;
 const MEDAL=[
-  {ring:"ring-kuning",bg:"bg-kuning",bar:"h-28 from-kuning/30",av:"size-20 text-2xl"},
-  {ring:"ring-perak",bg:"bg-perak",bar:"h-20 from-perak/20",av:"size-14 text-lg"},
-  {ring:"ring-perunggu",bg:"bg-perunggu",bar:"h-14 from-perunggu/25",av:"size-14 text-lg"},
+  {ring:"ring-kuning",bg:"bg-kuning",bar:"min-h-36 from-kuning/30",av:"size-20 text-2xl"},
+  {ring:"ring-perak",bg:"bg-perak",bar:"min-h-28 from-perak/20",av:"size-14 text-lg"},
+  {ring:"ring-perunggu",bg:"bg-perunggu",bar:"min-h-24 from-perunggu/25",av:"size-14 text-lg"},
 ];
-let DATA,period=CUR,q="";
+let DATA,period=CUR,q="",page=1;
 
 function avatar(p,size){
   const ini=esc((p.name||"?").trim().charAt(0).toUpperCase());
@@ -123,19 +123,20 @@ function avatar(p,size){
     ?`<span class="${cls}" data-i="${ini}"><img src="${esc(safeUrl(p.avatar))}" alt="" loading="lazy" referrerpolicy="no-referrer" class="size-full object-cover" onerror="this.parentNode.textContent=this.parentNode.dataset.i"></span>`
     :`<span class="${cls}">${ini}</span>`;
 }
-function badges(r,center){
+function badges(r,plain){
+  const chip=(bg,title,inner)=>`<span class="inline-flex h-6 min-w-6 items-center justify-center gap-0.5 text-xs ${plain?"":"rounded-full px-1.5 "+bg}" title="${title}">${inner}</span>`;
   const b=[];
-  if(r.firsts)b.push(`<span class="inline-flex h-6 items-center gap-0.5 rounded-full bg-kuning/15 px-2 text-xs" title="${r.firsts}× komentator pertama">🥇<span class="text-[11px] font-bold tabular-nums text-kuning">×${r.firsts}</span></span>`);
-  if(r.best_streak>=3)b.push(`<span class="${BADGE} bg-merah/20" title="${r.best_streak} video beruntun">🔥</span>`);
-  if(r.appearances>=10)b.push(`<span class="${BADGE} bg-white/10" title="Garuda Setia: dapat poin di ${r.appearances} video">🦅</span>`);
-  return b.length?`<div class="mt-1.5 flex gap-1${center?" justify-center":""}">${b.join("")}</div>`:"";
+  if(r.firsts)b.push(chip("bg-kuning/15",`${r.firsts}× komentator pertama`,`🥇<span class="text-[11px] font-bold tabular-nums text-kuning">×${r.firsts}</span>`));
+  if(r.best_streak>=3)b.push(chip("bg-merah/20",`${r.best_streak} video beruntun`,"🔥"));
+  if(r.appearances>=10)b.push(chip("bg-white/10",`Garuda Setia: dapat poin di ${r.appearances} video`,"🦅"));
+  return b.join("");
 }
 function empty(a,b){
   return `<div class="rounded-2xl border border-dashed border-white/15 px-6 py-10 text-center"><p class="font-semibold">${a}</p><p class="mt-1 text-sm text-krem/55">${b}</p></div>`;
 }
 function podium(top){
   return `<div class="grid grid-cols-3 items-end gap-2">`+[1,0,2].map(i=>{
-    const r=top[i],m=MEDAL[i];
+    const r=top[i],m=MEDAL[i],b=badges(r,true);
     return `<a href="${esc(safeUrl(r.url))}" target="_blank" rel="noopener" class="group flex min-w-0 flex-col items-center text-center">
       <div class="relative">
         <div class="rounded-full ring-2 ${m.ring} ring-offset-2 ring-offset-hijau-950">${avatar(r,m.av)}</div>
@@ -143,10 +144,10 @@ function podium(top){
       </div>
       <div class="mt-4 w-full truncate px-1 text-sm font-bold group-hover:text-kuning">${esc(r.name)}</div>
       <div class="w-full truncate px-1 text-xs text-krem/50">${esc(r.handle)}</div>
-      ${badges(r,true)}
-      <div class="mt-2 w-full rounded-t-2xl bg-linear-to-b ${m.bar} to-transparent pt-3">
+      <div class="mt-2 w-full rounded-t-2xl bg-linear-to-b ${m.bar} to-transparent pt-3 pb-2">
         <div class="text-2xl leading-none font-extrabold tabular-nums">${r.points}</div>
         <div class="mt-1 text-[11px] font-medium text-krem/55">poin</div>
+        ${b?`<div class="mt-1.5 flex flex-wrap justify-center gap-x-1.5">${b}</div>`:""}
       </div>
     </a>`;
   }).join("")+`</div>`;
@@ -157,11 +158,21 @@ function row(r){
     ${avatar(r,"size-10 text-sm")}
     <div class="min-w-0 flex-1">
       <div class="truncate text-sm font-semibold">${esc(r.name)}</div>
-      <div class="truncate text-xs text-krem/50">${esc(r.handle)}</div>${badges(r)}
+      <div class="truncate text-xs text-krem/50">${esc(r.handle)}</div>
     </div>
-    <div class="w-10 shrink-0 text-right text-2xl leading-none font-extrabold tabular-nums text-kuning">${r.points}</div></a></li>`;
+    <div class="flex shrink-0 items-center gap-1">${badges(r)}</div>
+    <div class="w-16 shrink-0 text-right whitespace-nowrap"><span class="text-xl leading-none font-extrabold tabular-nums text-kuning">${r.points}</span> <span class="text-[11px] font-medium text-krem/50">poin</span></div></a></li>`;
 }
-const list=arr=>arr.length?`<ol class="mt-6 divide-y divide-white/5 overflow-hidden rounded-2xl bg-white/[0.03] ring-1 ring-white/10">${arr.map(row).join("")}</ol>`:"";
+const list=(arr,mt)=>arr.length?`<ol class="${mt?"mt-6 ":""}divide-y divide-white/5 overflow-hidden rounded-2xl bg-white/[0.03] ring-1 ring-white/10">${arr.map(row).join("")}</ol>`:"";
+function pager(total){
+  const n=Math.ceil(total/PER);
+  if(n<=1)return "";
+  const btn="grid size-9 place-items-center rounded-lg bg-white/5 text-sm font-semibold tabular-nums ring-1 ring-white/10 transition disabled:opacity-30";
+  let h=`<button type="button" data-pg="${page-1}" ${page===1?"disabled":""} class="${btn}" aria-label="Sebelumnya">‹</button>`;
+  for(let i=1;i<=n;i++)h+=`<button type="button" data-pg="${i}" aria-current="${i===page?"page":"false"}" class="${btn} aria-[current=page]:bg-kuning aria-[current=page]:text-hijau-950 aria-[current=page]:ring-kuning">${i}</button>`;
+  h+=`<button type="button" data-pg="${page+1}" ${page===n?"disabled":""} class="${btn}" aria-label="Berikutnya">›</button>`;
+  return `<nav class="mt-4 flex items-center justify-center gap-1.5" aria-label="Halaman peringkat">${h}</nav>`;
+}
 
 function renderPeriods(){
   const ms=Object.keys(DATA.months).filter(m=>m!==CUR).sort().reverse();
@@ -175,12 +186,12 @@ function renderBoard(){
   $("#periodNote").textContent=period==="alltime"?"Semua video sejak papan dimulai."
     :period===CUR?`${monthLabel(CUR,true)} · dimulai ulang setiap tanggal 1.`:`${monthLabel(period,true)} · periode selesai.`;
   if(!all.length){el.innerHTML=empty("Belum ada video yang selesai dihitung.","Jadilah yang pertama berkomentar di video berikutnya!");return}
-  if(term){
-    const f=all.filter(r=>(r.name+" "+r.handle).toLowerCase().includes(term));
-    el.innerHTML=f.length?list(f).replace("mt-6 ",""):empty("Nama itu belum ada di papan.","Ayo komentar lebih awal di video berikutnya!");
-    return;
-  }
-  el.innerHTML=all.length>=3?podium(all)+list(all.slice(3)):list(all).replace("mt-6 ","");
+  const pod=!term&&all.length>=3;
+  const rest=term?all.filter(r=>(r.name+" "+r.handle).toLowerCase().includes(term)):pod?all.slice(3):all;
+  if(term&&!rest.length){el.innerHTML=empty("Nama itu belum ada di papan.","Ayo komentar lebih awal di video berikutnya!");return}
+  page=Math.min(page,Math.max(1,Math.ceil(rest.length/PER)));
+  const showPod=pod&&page===1;
+  el.innerHTML=(showPod?podium(all):"")+list(rest.slice((page-1)*PER,page*PER),showPod)+pager(rest.length);
 }
 function videoCard(v){
   const stack=v.top.map(e=>`<span class="rounded-full ring-2 ring-hijau-900">${avatar(e,"size-6 text-[10px]")}</span>`).join("");
@@ -245,11 +256,16 @@ document.querySelectorAll("[data-tab]").forEach(b=>b.onclick=()=>{
 });
 $("#periods").onclick=e=>{
   const b=e.target.closest("[data-p]");if(!b)return;
-  period=b.dataset.p;
+  period=b.dataset.p;page=1;
   document.querySelectorAll("[data-p]").forEach(x=>x.setAttribute("aria-pressed",x===b));
   renderBoard();
 };
-$("#q").oninput=e=>{q=e.target.value;renderBoard()};
+$("#q").oninput=e=>{q=e.target.value;page=1;renderBoard()};
+$("#board").onclick=e=>{
+  const b=e.target.closest("[data-pg]");if(!b||b.disabled)return;
+  page=+b.dataset.pg;renderBoard();
+  $("#board").scrollIntoView({behavior:"smooth",block:"start"});
+};
 setTab(location.hash==="#cara-main"?"cara-main":"peringkat");
 
 fetch("data/leaderboard.json?t="+Date.now()).then(r=>r.json()).then(d=>{DATA=d;render()})
