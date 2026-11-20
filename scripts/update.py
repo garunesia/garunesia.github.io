@@ -249,12 +249,10 @@ def build_leaderboard(state, cfg, generated):
         rows.sort(key=lambda r: (-r["points"], -r["firsts"], -r["appearances"],
                                  r["_first_seen"]))
         rows = rows[:cfg["leaderboard_size"]]
-        prev, rank = None, 0
+        # nomor urut selalu 1, 2, 3, ... (poin sama: lebih sering nomor 1,
+        # lalu lebih sering dapat poin, lalu yang lebih dulu dapat poin)
         for i, r in enumerate(rows, 1):
-            key = (r["points"], r["firsts"], r["appearances"])
-            rank = rank if key == prev else i
-            prev = key
-            r["rank"] = rank
+            r["rank"] = i
             del r["_first_seen"]
         return rows
 

@@ -82,9 +82,9 @@
 
     <h3 class="mt-9 text-xs font-bold tracking-wider text-krem/50 uppercase">Lencana</h3>
     <ul class="mt-3 space-y-2.5 text-sm">
-      <li class="flex items-center gap-3"><span class="inline-flex w-32 shrink-0 items-center justify-center gap-1 rounded-full bg-kuning/10 px-2 py-1 text-xs font-semibold text-kuning">🥇 Pertama</span><span class="text-krem/75">Pernah jadi komentator nomor 1</span></li>
-      <li class="flex items-center gap-3"><span class="inline-flex w-32 shrink-0 items-center justify-center gap-1 rounded-full bg-merah/15 px-2 py-1 text-xs font-semibold text-[#ff9f8c]">🔥 Beruntun</span><span class="text-krem/75">Dapat poin di 3+ video berturut-turut</span></li>
-      <li class="flex items-center gap-3"><span class="inline-flex w-32 shrink-0 items-center justify-center gap-1 rounded-full bg-white/5 px-2 py-1 text-xs font-semibold text-krem/75">🦅 Garuda Setia</span><span class="text-krem/75">Dapat poin di 10+ video</span></li>
+      <li class="flex items-center gap-3"><span class="grid size-8 shrink-0 place-items-center rounded-full bg-kuning/15">🥇</span><span class="text-krem/75">Pernah jadi komentator nomor 1</span></li>
+      <li class="flex items-center gap-3"><span class="grid size-8 shrink-0 place-items-center rounded-full bg-merah/20">🔥</span><span class="text-krem/75">Dapat poin di 3+ video berturut-turut</span></li>
+      <li class="flex items-center gap-3"><span class="grid size-8 shrink-0 place-items-center rounded-full bg-white/10">🦅</span><span class="text-krem/75">Dapat poin di 10+ video</span></li>
     </ul>
 
     <a id="cta" href="https://www.youtube.com/@garunesia" target="_blank" rel="noopener"
@@ -108,7 +108,7 @@ const fmtTime=iso=>{const d=wib(iso);return `${fmtDate(iso)}, ${String(d.getUTCH
 const monthLabel=(m,full)=>{const[y,mm]=m.split("-");const b=BULAN[+mm-1];return `${full?b:b.slice(0,3)} ${y}`};
 const after=(from,to)=>{const m=Math.round((new Date(to)-new Date(from))/6e4);return m<1?"<1 mnt":m<60?`${m} mnt`:`${Math.floor(m/60)} jam`};
 const CUR=new Date(Date.now()+7*3600e3).toISOString().slice(0,7);
-const PILL="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-semibold";
+const BADGE="grid size-6 place-items-center rounded-full text-xs";
 const MEDAL=[
   {ring:"ring-kuning",bg:"bg-kuning",bar:"h-28 from-kuning/30",av:"size-20 text-2xl"},
   {ring:"ring-perak",bg:"bg-perak",bar:"h-20 from-perak/20",av:"size-14 text-lg"},
@@ -123,12 +123,12 @@ function avatar(p,size){
     ?`<span class="${cls}" data-i="${ini}"><img src="${esc(safeUrl(p.avatar))}" alt="" loading="lazy" referrerpolicy="no-referrer" class="size-full object-cover" onerror="this.parentNode.textContent=this.parentNode.dataset.i"></span>`
     :`<span class="${cls}">${ini}</span>`;
 }
-function badges(r){
+function badges(r,center){
   const b=[];
-  if(r.firsts)b.push(`<span class="${PILL} bg-kuning/10 text-kuning">🥇 ${r.firsts}× pertama</span>`);
-  if(r.best_streak>=3)b.push(`<span class="${PILL} bg-merah/15 text-[#ff9f8c]">🔥 ${r.best_streak} beruntun</span>`);
-  if(r.appearances>=10)b.push(`<span class="${PILL} bg-white/5 text-krem/75">🦅 Garuda Setia</span>`);
-  return b.length?`<div class="mt-1.5 flex flex-wrap gap-1">${b.join("")}</div>`:"";
+  if(r.firsts)b.push(`<span class="${BADGE} bg-kuning/15" title="${r.firsts}× komentator pertama">🥇</span>`);
+  if(r.best_streak>=3)b.push(`<span class="${BADGE} bg-merah/20" title="${r.best_streak} video beruntun">🔥</span>`);
+  if(r.appearances>=10)b.push(`<span class="${BADGE} bg-white/10" title="Garuda Setia: dapat poin di ${r.appearances} video">🦅</span>`);
+  return b.length?`<div class="mt-1.5 flex gap-1${center?" justify-center":""}">${b.join("")}</div>`:"";
 }
 function empty(a,b){
   return `<div class="rounded-2xl border border-dashed border-white/15 px-6 py-10 text-center"><p class="font-semibold">${a}</p><p class="mt-1 text-sm text-krem/55">${b}</p></div>`;
@@ -143,6 +143,7 @@ function podium(top){
       </div>
       <div class="mt-4 w-full truncate px-1 text-sm font-bold group-hover:text-kuning">${esc(r.name)}</div>
       <div class="w-full truncate px-1 text-xs text-krem/50">${esc(r.handle)}</div>
+      ${badges(r,true)}
       <div class="mt-2 w-full rounded-t-2xl bg-linear-to-b ${m.bar} to-transparent pt-3">
         <div class="text-2xl leading-none font-extrabold tabular-nums">${r.points}</div>
         <div class="mt-1 text-[11px] font-medium text-krem/55">poin</div>
@@ -158,10 +159,7 @@ function row(r){
       <div class="truncate text-sm font-semibold">${esc(r.name)}</div>
       <div class="truncate text-xs text-krem/50">${esc(r.handle)}</div>${badges(r)}
     </div>
-    <div class="shrink-0 text-right">
-      <div class="text-lg leading-none font-extrabold tabular-nums text-kuning">${r.points}</div>
-      <div class="mt-1 text-[11px] text-krem/45">${r.appearances} video</div>
-    </div></a></li>`;
+    <div class="w-10 shrink-0 text-right text-2xl leading-none font-extrabold tabular-nums text-kuning">${r.points}</div></a></li>`;
 }
 const list=arr=>arr.length?`<ol class="mt-6 divide-y divide-white/5 overflow-hidden rounded-2xl bg-white/[0.03] ring-1 ring-white/10">${arr.map(row).join("")}</ol>`:"";
 
@@ -218,6 +216,7 @@ function renderRules(){
     `Satu orang dihitung <b class="font-bold text-krem">sekali per video</b>. Balasan (reply) tidak dihitung.`,
     r.min_words>1?`Komentar minimal <b class="font-bold text-krem">${r.min_words} kata</b>. Emoji atau "first" saja tidak dihitung.`:"",
     `Poin dikunci setelah ${r.window_hours} jam. Peringkat bulanan dimulai ulang setiap tanggal 1.`,
+    `Poin sama? Yang lebih sering jadi <b class="font-bold text-krem">nomor 1</b> di atas, lalu yang lebih sering dapat poin, lalu yang <b class="font-bold text-krem">lebih dulu</b> dapat poin.`,
   ].filter(Boolean).map((t,i)=>`<li class="flex gap-3 rounded-2xl bg-white/[0.04] p-4 ring-1 ring-white/10">
     <span class="grid size-7 shrink-0 place-items-center rounded-full bg-kuning text-sm font-extrabold text-hijau-950">${i+1}</span>
     <p class="pt-0.5 text-sm leading-relaxed text-krem/80">${t}</p></li>`).join("");
