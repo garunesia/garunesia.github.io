@@ -6,7 +6,7 @@ on:
   workflow_dispatch:          # tombol "Run workflow" untuk menjalankan manual
   push:
     branches: [main]
-    paths: ["docs/**", "config.json", "scripts/**"]
+    paths: ["docs/**", "styles/**", "config.json", "scripts/**"]
 
 permissions:
   contents: write
@@ -50,6 +50,14 @@ jobs:
       - name: Siapkan GitHub Pages
         if: steps.commit.outputs.changed == 'true' || github.event_name != 'schedule'
         uses: actions/configure-pages@v5
+
+      - name: Bangun CSS (Tailwind)
+        if: steps.commit.outputs.changed == 'true' || github.event_name != 'schedule'
+        run: |
+          curl -sSLo tailwindcss https://github.com/tailwindlabs/tailwindcss/releases/download/v4.1.11/tailwindcss-linux-x64
+          chmod +x tailwindcss
+          ./tailwindcss -i styles/app.css -o docs/app.css --minify
+          rm tailwindcss
 
       - name: Unggah website
         if: steps.commit.outputs.changed == 'true' || github.event_name != 'schedule'

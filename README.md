@@ -86,7 +86,8 @@ config.json                 pengaturan
 scripts/update.py           penghitung (Python, tanpa library tambahan)
 .github/workflows/update.yml jadwal otomatis + terbitkan website
 data/state.json             hasil per video (dibuat otomatis)
-docs/index.html             halaman website
+docs/index.html             halaman website (class Tailwind)
+styles/app.css              warna, font & sumber Tailwind; docs/app.css dibuat otomatis saat deploy
 docs/data/leaderboard.json  data yang dibaca website (dibuat otomatis)
 docs/logo.png               logo Garunesia
 ```

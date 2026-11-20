@@ -1,0 +1,32 @@
+/* Sumber CSS Tailwind. File hasilnya (docs/app.css) dibuat otomatis oleh GitHub Actions. */
+@import "tailwindcss" source(none);
+@source "../docs/index.html";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+
+  --color-hijau-950: #0d231a;
+  --color-hijau-900: #133126;
+  --color-hijau-800: #1f4d3a;
+  --color-hijau-700: #2a5f49;
+  --color-kuning: #f2c14e;
+  --color-krem: #f2ede4;
+  --color-merah: #e8553d;
+  --color-perak: #c9d1d9;
+  --color-perunggu: #d99a6c;
+}
+
+@layer base {
+  html {
+    background-color: var(--color-hijau-950);
+    color-scheme: dark;
+  }
+  body {
+    background:
+      radial-gradient(120% 50% at 50% -10%, rgb(31 77 58 / 0.9), transparent 70%) no-repeat,
+      var(--color-hijau-950);
+  }
+  input[type="search"]::-webkit-search-cancel-button {
+    filter: invert(1) opacity(0.5);
+  }
+}
