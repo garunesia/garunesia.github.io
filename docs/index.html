@@ -34,7 +34,7 @@
     <span class="h-5 w-px bg-white/15"></span>
     <h1 class="text-[15px] font-bold tracking-tight">Papan Komentator</h1>
     <a id="ytLink" href="https://www.youtube.com/@garunesia" target="_blank" rel="noopener"
-       class="ml-auto inline-flex items-center gap-1.5 rounded-full bg-merah px-3 py-1.5 text-xs font-bold text-white transition hover:brightness-110">
+       class="ml-auto inline-flex items-center gap-1.5 rounded-full bg-youtube px-3 py-1.5 text-xs font-bold text-white transition hover:bg-[#cc0000]">
       <svg viewBox="0 0 24 24" class="size-4" fill="currentColor" aria-hidden="true"><path d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12a31 31 0 0 0 .5 4.8 3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.8 31 31 0 0 0-.5-4.8ZM9.8 15.1V8.9l5.8 3.1-5.8 3.1Z"/></svg>
       Subscribe
     </a>
@@ -98,7 +98,7 @@
     </ul>
 
     <a id="cta" href="https://www.youtube.com/@garunesia" target="_blank" rel="noopener"
-       class="mt-10 flex items-center justify-center gap-2 rounded-2xl bg-merah py-3.5 font-bold text-white shadow-lg shadow-merah/20 transition hover:brightness-110">
+       class="mt-10 flex items-center justify-center gap-2 rounded-2xl bg-youtube py-3.5 font-bold text-white shadow-lg shadow-youtube/25 transition hover:bg-[#cc0000]">
       Subscribe Garunesia &amp; nyalakan 🔔
     </a>
     <p class="mt-4 text-center text-xs text-krem/45">Komentar yang tertahan "untuk ditinjau" di YouTube tidak terbaca sampai disetujui.</p>
@@ -203,7 +203,13 @@ function renderBoard(){
   const showPod=pod&&page===1;
   el.innerHTML=(showPod?podium(all):"")+list(rest.slice((page-1)*PER,page*PER),showPod)+pager(rest.length);
 }
-function videoCard(v){
+function closesIn(iso){
+  const m=Math.floor((new Date(iso)-Date.now())/6e4);
+  if(m<=0)return "sedang dikunci";
+  const h=Math.floor(m/60);
+  return `tutup dalam ${h?h+" jam ":""}${m%60} mnt`;
+}
+function videoCard(v,live){
   const stack=v.top.map(e=>`<span class="rounded-full ring-2 ring-hijau-900">${avatar(e,"size-6 text-[10px]")}</span>`).join("");
   const items=v.top.map(e=>`<li><a href="${esc(safeUrl(e.url))}" target="_blank" rel="noopener" class="flex items-center gap-3 py-2.5">
       <span class="w-4 shrink-0 text-center text-xs font-bold tabular-nums text-krem/45">${e.rank}</span>
@@ -211,10 +217,15 @@ function videoCard(v){
       <span class="min-w-0 flex-1 truncate text-sm">${esc(e.name)}</span>
       <span class="shrink-0 text-xs tabular-nums text-krem/45">${after(v.published,e.time)}</span>
       <span class="w-7 shrink-0 text-right text-sm font-bold tabular-nums text-kuning">+${e.points}</span></a></li>`).join("");
-  return `<details class="group overflow-hidden rounded-2xl bg-white/[0.04] ring-1 ring-white/10">
+  const link=`https://youtube.com/shorts/${esc(v.id)}`;
+  const none=live?"Belum ada komentar yang memenuhi syarat. Jadilah yang pertama!":"Tidak ada komentar yang memenuhi syarat.";
+  return `<details class="group overflow-hidden rounded-2xl bg-white/[0.04] ring-1 ${live?"ring-youtube/50":"ring-white/10"}"${live?" open":""}>
     <summary class="flex cursor-pointer list-none items-center gap-3 p-3 [&::-webkit-details-marker]:hidden">
       ${v.thumb?`<img src="${esc(safeUrl(v.thumb))}" alt="" loading="lazy" class="h-16 w-12 shrink-0 rounded-lg bg-hijau-700 object-cover">`:`<span class="h-16 w-12 shrink-0 rounded-lg bg-hijau-700"></span>`}
       <div class="min-w-0 flex-1">
+        ${live?`<div class="mb-1 flex flex-wrap items-center gap-x-2 gap-y-0.5 text-[11px] font-bold">
+          <span class="inline-flex items-center gap-1.5 rounded-full bg-youtube px-2 py-0.5 text-white"><span class="size-1.5 animate-pulse rounded-full bg-white"></span>BERLANGSUNG</span>
+          <span class="text-krem/60">${closesIn(v.closes)}</span></div>`:""}
         <div class="line-clamp-2 text-sm leading-snug font-semibold">${esc(v.title)}</div>
         <div class="mt-1.5 flex items-center gap-2">
           ${stack?`<div class="flex -space-x-1.5">${stack}</div>`:""}
@@ -224,8 +235,11 @@ function videoCard(v){
       <svg viewBox="0 0 24 24" class="size-5 shrink-0 text-krem/40 transition group-open:rotate-180" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
     </summary>
     <div class="border-t border-white/5 px-3 pb-3">
-      ${v.top.length?`<ol class="divide-y divide-white/5">${items}</ol>`:`<p class="py-3 text-sm text-krem/55">Tidak ada komentar yang memenuhi syarat.</p>`}
-      <a href="https://youtube.com/shorts/${esc(v.id)}" target="_blank" rel="noopener" class="mt-1 inline-flex items-center gap-1 text-sm font-semibold text-kuning hover:underline">Tonton video ↗</a>
+      ${live&&v.top.length?`<p class="pt-3 text-xs text-krem/50">Urutan sementara, diperbarui tiap jam. Poin dikunci saat jendela tutup.</p>`:""}
+      ${v.top.length?`<ol class="divide-y divide-white/5">${items}</ol>`:`<p class="py-3 text-sm text-krem/55">${none}</p>`}
+      ${live
+        ?`<a href="${link}" target="_blank" rel="noopener" class="mt-2 flex items-center justify-center gap-2 rounded-xl bg-youtube py-2.5 text-sm font-bold text-white transition hover:bg-[#cc0000]">Komentar sekarang ↗</a>`
+        :`<a href="${link}" target="_blank" rel="noopener" class="mt-1 inline-flex items-center gap-1 text-sm font-semibold text-kuning hover:underline">Tonton video ↗</a>`}
     </div>
   </details>`;
 }
@@ -248,8 +262,9 @@ function renderRules(){
 function render(){
   renderPeriods();
   renderBoard();
-  $("#recentSec").hidden=!DATA.recent.length;
-  $("#recent").innerHTML=DATA.recent.map(videoCard).join("");
+  const live=DATA.live||[];
+  $("#recentSec").hidden=!live.length&&!DATA.recent.length;
+  $("#recent").innerHTML=live.map(v=>videoCard(v,true)).join("")+DATA.recent.map(v=>videoCard(v,false)).join("");
   renderRules();
   if(DATA.channel&&DATA.channel.url){$("#cta").href=$("#ytLink").href=safeUrl(DATA.channel.url)}
   $("#foot").textContent=`Diperbarui ${fmtTime(DATA.generated_at)} · Data dari komentar publik YouTube`;

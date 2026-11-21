@@ -212,7 +212,7 @@ def score_video(video, comments, cfg, owner_id):
     return top, closes
 
 
-def build_leaderboard(state, cfg, generated):
+def build_leaderboard(state, cfg, generated, live=None):
     authors = state.get("authors", {})
     finals = sorted((v for v in state["videos"].values() if v["status"] == "final"),
                     key=lambda v: v["published"])
@@ -277,6 +277,8 @@ def build_leaderboard(state, cfg, generated):
         "alltime": table(finals),
         "months": {m: table(vs) for m, vs in sorted(by_month.items())},
         "recent": [video_out(v) for v in reversed(finals[-12:])],
+        "live": [video_out(v) for v in sorted(live or [], key=lambda v: v["published"],
+                                               reverse=True)],
     }
 
 
@@ -306,7 +308,7 @@ def main():
     for vid in [k for k in state["videos"] if k not in upload_ids]:
         del state["videos"][vid]
 
-    processed = 0
+    processed, live = 0, []
     for v in uploads:
         old = state["videos"].get(v["id"])
         if old and old["status"] == "final":
@@ -314,7 +316,10 @@ def main():
             continue
         closes = parse_ts(v["published"]) + timedelta(hours=cfg["window_hours"])
         if now < closes + grace:
-            continue  # jendela 24 jam belum tutup, dihitung nanti
+            # jendela 24 jam belum tutup: tampilkan urutan sementara, belum dikunci
+            top, closes = score_video(v, fetch_comments(v["id"]), cfg, owner)
+            live.append({**v, "closes": iso(closes), "top": top})
+            continue
         comments = fetch_comments(v["id"])
         top, closes = score_video(v, comments, cfg, owner)
         state["videos"][v["id"]] = {**v, "closes": iso(closes), "top": top,
@@ -335,7 +340,7 @@ def main():
         del state["authors"][a]
 
     changed_state = save_json(STATE_PATH, state)
-    board = build_leaderboard(state, cfg, iso(now))
+    board = build_leaderboard(state, cfg, iso(now), live)
     old_board = load_json(OUT_PATH, {})
     old_board["generated_at"] = board["generated_at"]
     changed_board = old_board != board and save_json(OUT_PATH, board)
