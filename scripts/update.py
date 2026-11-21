@@ -276,7 +276,7 @@ def build_leaderboard(state, cfg, generated, live=None):
                    "people": len({e["author_id"] for v in finals for e in v["top"]})},
         "alltime": table(finals),
         "months": {m: table(vs) for m, vs in sorted(by_month.items())},
-        "recent": [video_out(v) for v in reversed(finals[-12:])],
+        "recent": [video_out(v) for v in reversed(finals[-10:])],
         "live": [video_out(v) for v in sorted(live or [], key=lambda v: v["published"],
                                                reverse=True)],
     }

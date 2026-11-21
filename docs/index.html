@@ -200,11 +200,12 @@ function renderBoard(){
     :period===CUR?`${monthLabel(CUR,true)} · dimulai ulang setiap tanggal 1.`:`${monthLabel(period,true)} · periode selesai.`;
   if(!all.length){el.innerHTML=empty("Belum ada video yang selesai dihitung.","Jadilah yang pertama berkomentar di video berikutnya!");return}
   const pod=!term&&all.length>=3;
-  const rest=term?all.filter(r=>(r.name+" "+r.handle).toLowerCase().includes(term)):pod?all.slice(3):all;
+  const rest=term?all.filter(r=>(r.name+" "+r.handle).toLowerCase().includes(term)):all;
   if(term&&!rest.length){el.innerHTML=empty("Nama itu belum ada di papan.","Ayo komentar lebih awal di video berikutnya!");return}
   page=Math.min(page,Math.max(1,Math.ceil(rest.length/PER)));
   const showPod=pod&&page===1;
-  el.innerHTML=(showPod?podium(all):"")+list(rest.slice((page-1)*PER,page*PER),showPod)+pager(rest.length);
+  const rows=rest.slice((page-1)*PER,page*PER);
+  el.innerHTML=(showPod?podium(rows):"")+list(showPod?rows.slice(3):rows,showPod)+pager(rest.length);
 }
 function closesIn(iso){
   const m=Math.floor((new Date(iso)-Date.now())/6e4);
@@ -265,7 +266,7 @@ function render(){
   renderBoard();
   const live=DATA.live||[];
   $("#recentSec").hidden=!live.length&&!DATA.recent.length;
-  $("#recent").innerHTML=live.map(v=>videoCard(v,true)).join("")+DATA.recent.map(v=>videoCard(v,false)).join("");
+  $("#recent").innerHTML=[...live.map(v=>videoCard(v,true)),...DATA.recent.map(v=>videoCard(v,false))].slice(0,10).join("");
   renderRules();
   if(DATA.channel&&DATA.channel.url){$("#cta").href=$("#ytLink").href=safeUrl(DATA.channel.url)}
   $("#foot").textContent=`Diperbarui ${fmtTime(DATA.generated_at)} · Data dari komentar publik YouTube`;
