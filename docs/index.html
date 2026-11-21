@@ -133,8 +133,8 @@ function avatar(p,size){
     ?`<span class="${cls}" data-i="${ini}"><img src="${esc(safeUrl(p.avatar))}" alt="" loading="lazy" referrerpolicy="no-referrer" class="size-full object-cover" onerror="this.parentNode.textContent=this.parentNode.dataset.i"></span>`
     :`<span class="${cls}">${ini}</span>`;
 }
-function badges(r,plain){
-  const chip=(bg,title,inner)=>`<span class="inline-flex h-6 min-w-6 items-center justify-center gap-0.5 text-xs ${plain?"":"rounded-full px-1.5 "+bg}" title="${title}">${inner}</span>`;
+function badges(r){
+  const chip=(bg,title,inner)=>`<span class="inline-flex h-6 min-w-6 items-center justify-center gap-0.5 rounded-full px-1.5 text-xs ${bg}" title="${title}">${inner}</span>`;
   const b=[];
   if(r.firsts)b.push(chip("bg-kuning/15",`${r.firsts}× komentator pertama`,`🥇<span class="text-[11px] font-bold tabular-nums text-kuning">×${r.firsts}</span>`));
   if(r.best_streak>=3)b.push(chip("bg-merah/20",`${r.best_streak} video beruntun`,"🔥"));
@@ -146,32 +146,35 @@ function empty(a,b){
 }
 function podium(top){
   return `<div class="grid grid-cols-3 items-end gap-2">`+[1,0,2].map(i=>{
-    const r=top[i],m=MEDAL[i],b=badges(r,true);
+    const r=top[i],m=MEDAL[i],b=badges(r);
     return `<div class="flex min-w-0 flex-col items-center text-center">
       <div class="relative">
         <div class="rounded-full ring-2 ${m.ring} ring-offset-2 ring-offset-hijau-950">${avatar(r,m.av)}</div>
         <span class="absolute -bottom-2 left-1/2 grid size-6 -translate-x-1/2 place-items-center rounded-full ${m.bg} text-xs font-extrabold text-hijau-950 ring-2 ring-hijau-950">${r.rank}</span>
       </div>
-      <a href="${esc(safeUrl(r.url))}" target="_blank" rel="noopener" class="group mt-4 inline-block max-w-full px-1"><span class="block truncate text-sm font-bold group-hover:text-kuning">${esc(r.name)}</span>
+      <a href="${esc(safeUrl(r.url))}" target="_blank" rel="noopener" class="group mx-auto mt-4 block w-fit max-w-full min-w-0 overflow-hidden px-1"><span class="block truncate text-sm font-bold group-hover:text-kuning">${esc(r.name)}</span>
         <span class="block truncate text-xs text-krem/50 group-hover:text-kuning/80">${esc(r.handle)}</span></a>
       <div class="mt-2 w-full rounded-t-2xl bg-linear-to-b ${m.bar} to-transparent pt-3 pb-2">
         <div class="text-2xl leading-none font-extrabold tabular-nums">${r.points}</div>
         <div class="mt-1 text-[11px] font-medium text-krem/55">poin</div>
-        ${b?`<div class="mt-1.5 flex flex-wrap justify-center gap-x-1.5">${b}</div>`:""}
+        ${b?`<div class="mt-1.5 flex flex-wrap justify-center gap-1">${b}</div>`:""}
       </div>
     </div>`;
   }).join("")+`</div>`;
 }
 function row(r){
+  const b=badges(r);
   return `<li class="flex items-center gap-3 px-3 py-3">
     <span class="w-6 shrink-0 text-center text-sm font-bold tabular-nums text-krem/45">${r.rank}</span>
     ${avatar(r,"size-10 text-sm")}
     <div class="min-w-0 flex-1">
-      <a href="${esc(safeUrl(r.url))}" target="_blank" rel="noopener" class="group inline-block max-w-full align-top"><span class="block truncate text-sm font-semibold group-hover:text-kuning">${esc(r.name)}</span>
+      <a href="${esc(safeUrl(r.url))}" target="_blank" rel="noopener" class="group block w-fit max-w-full min-w-0 overflow-hidden"><span class="block truncate text-sm font-semibold group-hover:text-kuning">${esc(r.name)}</span>
       <span class="block truncate text-xs text-krem/50 group-hover:text-kuning/80">${esc(r.handle)}</span></a>
     </div>
-    <div class="flex shrink-0 items-center gap-1">${badges(r)}</div>
-    <div class="w-16 shrink-0 text-right whitespace-nowrap"><span class="text-xl leading-none font-extrabold tabular-nums text-kuning">${r.points}</span> <span class="text-[11px] font-medium text-krem/50">poin</span></div></li>`;
+    <div class="shrink-0 text-right">
+      <div class="whitespace-nowrap"><span class="text-xl leading-none font-extrabold tabular-nums text-kuning">${r.points}</span> <span class="text-[11px] font-medium text-krem/50">poin</span></div>
+      ${b?`<div class="mt-1 flex justify-end gap-1">${b}</div>`:""}
+    </div></li>`;
 }
 const list=(arr,mt)=>arr.length?`<ol class="${mt?"mt-6 ":""}divide-y divide-white/5 overflow-hidden rounded-2xl bg-white/[0.03] ring-1 ring-white/10">${arr.map(row).join("")}</ol>`:"";
 function pager(total){
@@ -224,7 +227,7 @@ function videoCard(v,live){
       ${v.thumb?`<img src="${esc(safeUrl(v.thumb))}" alt="" loading="lazy" class="h-16 w-12 shrink-0 rounded-lg bg-hijau-700 object-cover">`:`<span class="h-16 w-12 shrink-0 rounded-lg bg-hijau-700"></span>`}
       <div class="min-w-0 flex-1">
         ${live?`<div class="mb-0.5 flex items-center gap-1.5 text-[11px] font-medium text-krem/55">
-          <span class="size-1.5 shrink-0 animate-pulse rounded-full bg-[#ff6b5e]"></span>
+          <span class="relative flex size-2 shrink-0"><span class="absolute inline-flex size-full animate-ping rounded-full bg-youtube opacity-75"></span><span class="relative inline-flex size-2 rounded-full bg-youtube"></span></span>
           <span class="font-semibold text-[#ff8b80]">Berlangsung</span><span>· ${closesIn(v.closes)}</span></div>`:""}
         <div class="line-clamp-2 text-sm leading-snug font-semibold">${esc(v.title)}</div>
         <div class="mt-1.5 flex items-center gap-2">
