@@ -6,7 +6,7 @@ on:
   workflow_dispatch:          # tombol "Run workflow" untuk menjalankan manual
   push:
     branches: [main]
-    paths: ["docs/**", "styles/**", "config.json", "scripts/**"]
+    paths: ["docs/**", "styles/**", "config.json", "scripts/**", ".github/workflows/**"]
 
 permissions:
   contents: write
@@ -18,14 +18,12 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  update:
+  # 1) Hitung komentar, simpan hasil, siapkan file website
+  build:
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    environment:
-      name: github-pages
-      url: ${{ steps.deploy.outputs.page_url }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Hitung komentar
         env:
@@ -33,39 +31,49 @@ jobs:
         run: python3 scripts/update.py
 
       - name: Simpan hasil ke repo
-        id: commit
         run: |
           git add data docs/data
-          if git diff --cached --quiet; then
-            echo "changed=false" >> "$GITHUB_OUTPUT"
-          else
+          if ! git diff --cached --quiet; then
             git config user.name "garunesia-bot"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git commit -m "Update leaderboard"
             git pull --rebase
             git push
-            echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Siapkan GitHub Pages
-        if: steps.commit.outputs.changed == 'true' || github.event_name != 'schedule'
-        uses: actions/configure-pages@v5
-
       - name: Bangun CSS (Tailwind)
-        if: steps.commit.outputs.changed == 'true' || github.event_name != 'schedule'
         run: |
           curl -sSLo tailwindcss https://github.com/tailwindlabs/tailwindcss/releases/download/v4.1.11/tailwindcss-linux-x64
           chmod +x tailwindcss
           ./tailwindcss -i styles/app.css -o docs/app.css --minify
           rm tailwindcss
 
+      - uses: actions/configure-pages@v5
+
       - name: Unggah website
-        if: steps.commit.outputs.changed == 'true' || github.event_name != 'schedule'
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: docs
 
+  # 2) Terbitkan ke GitHub Pages (dicoba ulang sekali kalau GitHub sedang gangguan)
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy2.outputs.page_url || steps.deploy.outputs.page_url }}
+    steps:
       - name: Terbitkan website
         id: deploy
-        if: steps.commit.outputs.changed == 'true' || github.event_name != 'schedule'
+        continue-on-error: true
+        uses: actions/deploy-pages@v4
+
+      - name: Tunggu sebentar lalu coba lagi
+        if: steps.deploy.outcome == 'failure'
+        run: sleep 45
+
+      - name: Terbitkan website (percobaan kedua)
+        id: deploy2
+        if: steps.deploy.outcome == 'failure'
         uses: actions/deploy-pages@v4
