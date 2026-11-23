@@ -584,7 +584,7 @@
   "title": "Garunesia",
   "url": "https://www.youtube.com/@garunesia"
  },
- "generated_at": "2026-11-23T10:27:00Z",
+ "generated_at": "2026-11-23T13:36:49Z",
  "live": [
   {
    "closes": "2026-11-24T10:00:20Z",
@@ -602,6 +602,26 @@
      "rank": 1,
      "time": "2026-11-23T10:14:26Z",
      "url": "https://www.youtube.com/@ak70football"
+    },
+    {
+     "avatar": "https://yt3.ggpht.com/ytc/AIdro_lHFU9CD7P84OjoCrweM8-UwHQ5qXlJka6m-B9uFXo=s48-c-k-c0x00ffffff-no-rj",
+     "handle": "@susantosanto8549",
+     "id": "UCSszQ6LNek5UavOEE6kn69Q",
+     "name": "susantosanto8549",
+     "points": 4,
+     "rank": 2,
+     "time": "2026-11-23T12:14:13Z",
+     "url": "http://www.youtube.com/@susantosanto8549"
+    },
+    {
+     "avatar": "https://yt3.ggpht.com/ytc/AIdro_neAWLH7sZOed0nxggmhltv1elkeHlOQumeJrdVd-uJprIR_0tQYDxrh34wywukW1kbeQ=s48-c-k-c0x00ffffff-no-rj",
+     "handle": "@SandiSanjaya-qz8jd",
+     "id": "UCgk7KmQEjyQ-RBvnBbMaBSA",
+     "name": "SandiSanjaya-qz8jd",
+     "points": 3,
+     "rank": 3,
+     "time": "2026-11-23T13:18:14Z",
+     "url": "http://www.youtube.com/@SandiSanjaya-qz8jd"
     }
    ]
   }
