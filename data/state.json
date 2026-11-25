@@ -140,6 +140,13 @@
    "title": "Mohamad Zainudin",
    "url": "https://www.youtube.com/@mohamadzainudin1514"
   },
+  "UCNY4qmAZlLI9-rXVl_60L6g": {
+   "avatar": "https://yt3.ggpht.com/zOw2D8Mh3RTCSH4Hc0FoS8iasONeZ6mIkRlazrrPshPv1N_pDdAI0KAYAAnWF-kMMCIXkwlU-g=s88-c-k-c0x00ffffff-no-rj",
+   "fetched": "2026-11-25T11:12:17Z",
+   "handle": "@kiperkampungan.v30",
+   "title": "kiper kampungan",
+   "url": "https://www.youtube.com/@kiperkampungan.v30"
+  },
   "UCQy5dN0yAy5Ejs79-Z8NO7Q": {
    "avatar": "https://yt3.ggpht.com/ytc/AIdro_n6ZBBa_3wssvZ-3uYejR-pYif7bZ3F-sJr33JSyktwwYCCLRkkFCHIjZW7Up1yAzVU4w=s88-c-k-c0x00ffffff-no-rj",
    "fetched": "2026-11-20T18:48:15Z",
@@ -216,6 +223,13 @@
    "handle": "@h.ahmadbadrussyarof",
    "title": "H. Ahmad Badrus Syarof",
    "url": "https://www.youtube.com/@h.ahmadbadrussyarof"
+  },
+  "UCfqpL24HoKPKDT5rG3I9wcQ": {
+   "avatar": "https://yt3.ggpht.com/ytc/AIdro_kXuJ7OgXv_zrXwA-_YoeE2bmRy7PY8QBQZKmUcku4=s88-c-k-c0x00ffffff-no-rj",
+   "fetched": "2026-11-25T11:12:17Z",
+   "handle": "@syamsudindirgantara696",
+   "title": "Syamsuddin",
+   "url": "https://www.youtube.com/@syamsudindirgantara696"
   },
   "UCg8tKesuK3b8Ii78j-IRVdA": {
    "avatar": "https://yt3.ggpht.com/ytc/AIdro_lkHTxaQX4GeLyde98_i9NgVRl5kVgqn4U4wsMmgz9TX1E=s88-c-k-c0x00ffffff-no-rj",
@@ -300,6 +314,13 @@
    "handle": "@nofyanmustafa",
    "title": "nofyan mustafa",
    "url": "https://www.youtube.com/@nofyanmustafa"
+  },
+  "UCpitWYIoLRR1nCOlu0sW0YA": {
+   "avatar": "https://yt3.ggpht.com/TZ4ISF98xHIkBg0NYRQK6fk0NlxPvoGCe59J-jGCHsL1aDY31A7v5IncoJg30ZSkWk1U8LUhiA=s88-c-k-c0x00ffffff-no-rj",
+   "fetched": "2026-11-25T11:12:17Z",
+   "handle": "@rusmini4652",
+   "title": "~abbad sih El preman",
+   "url": "https://www.youtube.com/@rusmini4652"
   },
   "UCpnuidS0r5T4XGHGUDKShdA": {
    "avatar": "https://yt3.ggpht.com/ytc/AIdro_n1guDiz8iQIUgFGnmh5VA5PJlNSiWQwX3Ik0ywlPv8JUDRXZiF6wxDvbC7F3YSi1BdlA=s88-c-k-c0x00ffffff-no-rj",
@@ -813,6 +834,52 @@
      "rank": 1,
      "time": "2026-11-16T12:49:15Z",
      "url": "http://www.youtube.com/@AK70Football"
+    }
+   ]
+  },
+  "OuPeHvLQm8A": {
+   "closes": "2026-11-25T10:00:22Z",
+   "id": "OuPeHvLQm8A",
+   "published": "2026-11-24T10:00:22Z",
+   "status": "final",
+   "thumb": "https://i.ytimg.com/vi/OuPeHvLQm8A/mqdefault.jpg",
+   "title": "Spesialis Tendangan Bebas Garuda dari Balikpapan!",
+   "top": [
+    {
+     "author_id": "UC2L8TgikIUZi3mxjme6yUCA",
+     "avatar": "https://yt3.ggpht.com/ytc/AIdro_n6ZBBa_3wssvZ-3uYejR-pYif7bZ3F-sJr33JSyktwwYCCLRkkFCHIjZW7Up1yAzVU4w=s48-c-k-c0x00ffffff-no-rj",
+     "display": "@AhmadTamis",
+     "points": 5,
+     "rank": 1,
+     "time": "2026-11-24T10:29:05Z",
+     "url": "http://www.youtube.com/@AhmadTamis"
+    },
+    {
+     "author_id": "UCNY4qmAZlLI9-rXVl_60L6g",
+     "avatar": "https://yt3.ggpht.com/zOw2D8Mh3RTCSH4Hc0FoS8iasONeZ6mIkRlazrrPshPv1N_pDdAI0KAYAAnWF-kMMCIXkwlU-g=s48-c-k-c0x00ffffff-no-rj",
+     "display": "@kiperkampungan.v30",
+     "points": 4,
+     "rank": 2,
+     "time": "2026-11-24T23:56:50Z",
+     "url": "http://www.youtube.com/@kiperkampungan.v30"
+    },
+    {
+     "author_id": "UCpitWYIoLRR1nCOlu0sW0YA",
+     "avatar": "https://yt3.ggpht.com/TZ4ISF98xHIkBg0NYRQK6fk0NlxPvoGCe59J-jGCHsL1aDY31A7v5IncoJg30ZSkWk1U8LUhiA=s48-c-k-c0x00ffffff-no-rj",
+     "display": "@rusmini4652",
+     "points": 3,
+     "rank": 3,
+     "time": "2026-11-25T05:09:36Z",
+     "url": "http://www.youtube.com/@rusmini4652"
+    },
+    {
+     "author_id": "UCfqpL24HoKPKDT5rG3I9wcQ",
+     "avatar": "https://yt3.ggpht.com/ytc/AIdro_kXuJ7OgXv_zrXwA-_YoeE2bmRy7PY8QBQZKmUcku4=s48-c-k-c0x00ffffff-no-rj",
+     "display": "@syamsudindirgantara696",
+     "points": 2,
+     "rank": 4,
+     "time": "2026-11-25T06:12:49Z",
+     "url": "http://www.youtube.com/@syamsudindirgantara696"
     }
    ]
   },
