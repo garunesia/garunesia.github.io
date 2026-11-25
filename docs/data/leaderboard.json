@@ -608,8 +608,37 @@
   "title": "Garunesia",
   "url": "https://www.youtube.com/@garunesia"
  },
- "generated_at": "2026-11-25T00:00:11Z",
+ "generated_at": "2026-11-25T06:12:49Z",
  "live": [
+  {
+   "closes": "2026-11-26T04:56:53Z",
+   "id": "653dVwCg77E",
+   "published": "2026-11-25T04:56:53Z",
+   "thumb": "https://i.ytimg.com/vi/653dVwCg77E/mqdefault.jpg",
+   "title": "Adu Data: Kurniawan Dwi Yulianto vs Bambang Pamungkas",
+   "top": [
+    {
+     "avatar": "https://yt3.ggpht.com/ytc/AIdro_kQnWSAD6Gm3-wtlJwdGQ5jT55-cFBUBsNuleFX8xZm76T3ar1J01mTypF-cd73dN1eDg=s48-c-k-c0x00ffffff-no-rj",
+     "handle": "@DoddyDolan",
+     "id": "UCX0423FPU7-6rl5vtSNZIDQ",
+     "name": "DoddyDolan",
+     "points": 5,
+     "rank": 1,
+     "time": "2026-11-25T05:12:59Z",
+     "url": "http://www.youtube.com/@DoddyDolan"
+    },
+    {
+     "avatar": "https://yt3.ggpht.com/OzadVLH55ko9XNf81ssuiBjZqcV9-AGPNXLp6HZ0bdilBUGadlrBptLGeCJ37vtqacdoEQhblQ=s88-c-k-c0x00ffffff-no-rj",
+     "handle": "@ak70football",
+     "id": "UC-wDhKHgPEfzf3QrpXoiGPg",
+     "name": "jejaksikancil",
+     "points": 4,
+     "rank": 2,
+     "time": "2026-11-25T05:33:40Z",
+     "url": "https://www.youtube.com/@ak70football"
+    }
+   ]
+  },
   {
    "closes": "2026-11-25T10:00:22Z",
    "id": "OuPeHvLQm8A",
@@ -636,6 +665,26 @@
      "rank": 2,
      "time": "2026-11-24T23:56:50Z",
      "url": "http://www.youtube.com/@kiperkampungan.v30"
+    },
+    {
+     "avatar": "https://yt3.ggpht.com/TZ4ISF98xHIkBg0NYRQK6fk0NlxPvoGCe59J-jGCHsL1aDY31A7v5IncoJg30ZSkWk1U8LUhiA=s48-c-k-c0x00ffffff-no-rj",
+     "handle": "@rusmini4652",
+     "id": "UCpitWYIoLRR1nCOlu0sW0YA",
+     "name": "rusmini4652",
+     "points": 3,
+     "rank": 3,
+     "time": "2026-11-25T05:09:36Z",
+     "url": "http://www.youtube.com/@rusmini4652"
+    },
+    {
+     "avatar": "https://yt3.ggpht.com/ytc/AIdro_kXuJ7OgXv_zrXwA-_YoeE2bmRy7PY8QBQZKmUcku4=s48-c-k-c0x00ffffff-no-rj",
+     "handle": "@syamsudindirgantara696",
+     "id": "UCfqpL24HoKPKDT5rG3I9wcQ",
+     "name": "syamsudindirgantara696",
+     "points": 2,
+     "rank": 4,
+     "time": "2026-11-25T06:12:49Z",
+     "url": "http://www.youtube.com/@syamsudindirgantara696"
     }
    ]
   }
