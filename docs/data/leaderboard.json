@@ -608,8 +608,16 @@
   "title": "Garunesia",
   "url": "https://www.youtube.com/@garunesia"
  },
- "generated_at": "2026-11-28T11:59:15Z",
+ "generated_at": "2026-11-28T15:00:02Z",
  "live": [
+  {
+   "closes": "2026-11-29T14:00:23Z",
+   "id": "J1fA8Q5NVyo",
+   "published": "2026-11-28T14:00:23Z",
+   "thumb": "https://i.ytimg.com/vi/J1fA8Q5NVyo/mqdefault.jpg",
+   "title": "Skandal Suap Sepak Bola Senayan 1962: 10 Pemain Timnas Dihukum!",
+   "top": []
+  },
   {
    "closes": "2026-11-29T04:30:33Z",
    "id": "1EoxR9kJ4zs",
@@ -636,6 +644,16 @@
      "rank": 2,
      "time": "2026-11-28T10:43:27Z",
      "url": "http://www.youtube.com/@simahsimah3211"
+    },
+    {
+     "avatar": "https://yt3.ggpht.com/ytc/AIdro_lA7jr0LZvBQFLmBc7jijnVjyoazsJEdCveoYk4bFvSLqy3mJRIVzhAwp7IKIkTOUTl9A=s88-c-k-c0x00ffffff-no-rj",
+     "handle": "@sahrularifilham4058",
+     "id": "UCX1F6iOREWF5Awy92o3MPpw",
+     "name": "Sahrul Arif ilham",
+     "points": 3,
+     "rank": 3,
+     "time": "2026-11-28T13:52:52Z",
+     "url": "https://www.youtube.com/@sahrularifilham4058"
     }
    ]
   }
