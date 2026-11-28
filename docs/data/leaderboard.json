@@ -608,7 +608,7 @@
   "title": "Garunesia",
   "url": "https://www.youtube.com/@garunesia"
  },
- "generated_at": "2026-11-28T11:01:58Z",
+ "generated_at": "2026-11-28T11:59:15Z",
  "live": [
   {
    "closes": "2026-11-29T04:30:33Z",
@@ -638,14 +638,6 @@
      "url": "http://www.youtube.com/@simahsimah3211"
     }
    ]
-  },
-  {
-   "closes": "2026-11-28T11:05:31Z",
-   "id": "XZfGMr7zdnc",
-   "published": "2026-11-27T11:05:31Z",
-   "thumb": "https://i.ytimg.com/vi/XZfGMr7zdnc/mqdefault.jpg",
-   "title": "Kisah Bomber Montenegro di Tanah Garuda!",
-   "top": []
   }
  ],
  "months": {
@@ -1304,6 +1296,14 @@
  },
  "recent": [
   {
+   "closes": "2026-11-28T11:05:31Z",
+   "id": "XZfGMr7zdnc",
+   "published": "2026-11-27T11:05:31Z",
+   "thumb": "https://i.ytimg.com/vi/XZfGMr7zdnc/mqdefault.jpg",
+   "title": "Kisah Bomber Montenegro di Tanah Garuda!",
+   "top": []
+  },
+  {
    "closes": "2026-11-27T10:45:32Z",
    "id": "8rQIU3wA82I",
    "published": "2026-11-26T10:45:32Z",
@@ -1753,35 +1753,6 @@
      "url": "https://www.youtube.com/@sahrularifilham4058"
     }
    ]
-  },
-  {
-   "closes": "2026-11-20T11:40:15Z",
-   "id": "80albztgjjM",
-   "published": "2026-11-19T11:40:15Z",
-   "thumb": "https://i.ytimg.com/vi/80albztgjjM/mqdefault.jpg",
-   "title": "Pemain Terbaik SEA Games 2011 dari Papua! 🏆",
-   "top": [
-    {
-     "avatar": "https://yt3.ggpht.com/ytc/AIdro_n-ipYGNyWfz12ONyTS5rSab8KjOyO2zchxWqeHFrPUeLIIa2HS4OmlreGaAFKDd_6j1g=s88-c-k-c0x00ffffff-no-rj",
-     "handle": "@sayedalif-y6m",
-     "id": "UCw9vJ7r92RI5scv7Z2Ky1Ow",
-     "name": "Sayed alif",
-     "points": 5,
-     "rank": 1,
-     "time": "2026-11-19T12:11:29Z",
-     "url": "https://www.youtube.com/@sayedalif-y6m"
-    },
-    {
-     "avatar": "https://yt3.ggpht.com/eMX7EvUg7Xky-sJgTgA15CstAhPfk5K1gxSfx-zFbE0NCHgBoKnFVxuCmvYppe5DICWduSRUIw=s88-c-k-c0x00ffffff-no-rj",
-     "handle": "@sinaipradipta1255",
-     "id": "UCEH7j4p4tzbb_PPu6mGv3lA",
-     "name": "Sinai Pradipta",
-     "points": 4,
-     "rank": 2,
-     "time": "2026-11-19T14:56:59Z",
-     "url": "https://www.youtube.com/@sinaipradipta1255"
-    }
-   ]
   }
  ],
  "rules": {
@@ -1797,6 +1768,6 @@
  },
  "totals": {
   "people": 66,
-  "videos": 32
+  "videos": 33
  }
 }
